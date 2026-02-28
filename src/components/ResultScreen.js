@@ -223,7 +223,7 @@ function EditPanel({ factor, value, color, onSelect, onClose }) {
 export default function ResultScreen({ selections, onSelect, onReset, onBack }) {
   const [editingId, setEditingId] = useState(null);
   const [showExportModal, setShowExportModal] = useState(false);
-  const [panelOpen, setPanelOpen] = useState(true);
+  const [panelOpen, setPanelOpen] = useState(false);
 
   const result = calculateResult(selections, FACTORS);
   const urgency = URGENCY_LEVELS[result.level];

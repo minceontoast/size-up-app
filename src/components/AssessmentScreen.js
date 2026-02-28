@@ -5,7 +5,7 @@ import { FACTORS, SUITS } from '../data/factors';
 
 export default function AssessmentScreen({ selections, onSelect, onFinish, onBack, onRandomise }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [panelOpen, setPanelOpen] = useState(true);
+  const [panelOpen, setPanelOpen] = useState(false);
   const containerRef = useRef(null);
   const [touchStart, setTouchStart] = useState(null);
 
