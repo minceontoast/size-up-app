@@ -345,6 +345,51 @@ export default function ResultScreen({ selections, onSelect, onReset, onBack }) 
         </div>
       </div>
 
+      {/* Actions — directly below score card */}
+      <div
+        style={{
+          display: 'flex',
+          gap: 12,
+          justifyContent: 'center',
+          padding: '0 16px 16px',
+          maxWidth: 540,
+          margin: '0 auto',
+          width: '100%',
+        }}
+      >
+        <button
+          onClick={onReset}
+          style={{
+            flex: 1,
+            padding: '14px 0',
+            borderRadius: 10,
+            border: '1px solid #ddd',
+            background: '#fff',
+            fontSize: 15,
+            cursor: 'pointer',
+            fontWeight: 600,
+          }}
+        >
+          Start Over
+        </button>
+        <button
+          onClick={() => setShowExportModal(true)}
+          style={{
+            flex: 1,
+            padding: '14px 0',
+            borderRadius: 10,
+            border: 'none',
+            background: '#1565c0',
+            color: '#fff',
+            fontSize: 15,
+            cursor: 'pointer',
+            fontWeight: 600,
+          }}
+        >
+          Export PDF
+        </button>
+      </div>
+
       {/* All cards horizontal strip */}
       <div
         className="hide-scrollbar"
@@ -512,45 +557,6 @@ export default function ResultScreen({ selections, onSelect, onReset, onBack }) 
           );
         })()}
 
-        {/* Actions */}
-        <div
-          style={{
-            display: 'flex',
-            gap: 12,
-            justifyContent: 'center',
-            paddingBottom: 'max(32px, env(safe-area-inset-bottom))',
-          }}
-        >
-          <button
-            onClick={onReset}
-            style={{
-              padding: '14px 32px',
-              borderRadius: 10,
-              border: '1px solid #ddd',
-              background: '#fff',
-              fontSize: 15,
-              cursor: 'pointer',
-              fontWeight: 600,
-            }}
-          >
-            Start Over
-          </button>
-          <button
-            onClick={() => setShowExportModal(true)}
-            style={{
-              padding: '14px 32px',
-              borderRadius: 10,
-              border: 'none',
-              background: '#1565c0',
-              color: '#fff',
-              fontSize: 15,
-              cursor: 'pointer',
-              fontWeight: 600,
-            }}
-          >
-            Export PDF
-          </button>
-        </div>
       </div>
 
       {showExportModal && (
