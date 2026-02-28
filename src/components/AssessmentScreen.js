@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import UrgencyCard from './UrgencyCard';
+import ScorePanel from './ScorePanel';
 import { FACTORS, SUITS } from '../data/factors';
 
 export default function AssessmentScreen({ selections, onSelect, onFinish, onBack, onRandomise }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [panelOpen, setPanelOpen] = useState(true);
   const containerRef = useRef(null);
   const [touchStart, setTouchStart] = useState(null);
 
@@ -46,6 +48,14 @@ export default function AssessmentScreen({ selections, onSelect, onFinish, onBac
         flexDirection: 'column',
       }}
     >
+      <ScorePanel
+        selections={selections}
+        currentIndex={currentIndex}
+        onGoTo={goTo}
+        isOpen={panelOpen}
+        onToggle={() => setPanelOpen((o) => !o)}
+      />
+
       {/* Header */}
       <div
         style={{

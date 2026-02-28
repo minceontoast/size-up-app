@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FACTORS } from '../data/factors';
 import { calculateResult, URGENCY_LEVELS } from '../utils/scoring';
 import ExportModal from './ExportModal';
+import ScorePanel from './ScorePanel';
 
 const FACTOR_COLORS = [
   '#c62828', // 1  Nature of Impact - deep red
@@ -222,6 +223,7 @@ function EditPanel({ factor, value, color, onSelect, onClose }) {
 export default function ResultScreen({ selections, onSelect, onReset, onBack }) {
   const [editingId, setEditingId] = useState(null);
   const [showExportModal, setShowExportModal] = useState(false);
+  const [panelOpen, setPanelOpen] = useState(true);
 
   const result = calculateResult(selections, FACTORS);
   const urgency = URGENCY_LEVELS[result.level];
@@ -239,6 +241,14 @@ export default function ResultScreen({ selections, onSelect, onReset, onBack }) 
         flexDirection: 'column',
       }}
     >
+      <ScorePanel
+        selections={selections}
+        currentIndex={null}
+        onGoTo={null}
+        isOpen={panelOpen}
+        onToggle={() => setPanelOpen((o) => !o)}
+      />
+
       {/* Header */}
       <div
         style={{
