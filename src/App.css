@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Industry Test', 'Noto Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #222;
@@ -17,7 +17,11 @@ body {
 }
 
 button {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Industry Test', 'Noto Sans', sans-serif;
+}
+
+input, select, textarea {
+  font-family: 'Industry Test', 'Noto Sans', sans-serif;
 }
 
 .hide-scrollbar {
@@ -26,4 +30,21 @@ button {
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* Industry alternating style: bold uppercase for odd words, italic for even words */
+/* Applied to the main app title and section headings */
+.industry-heading {
+  font-family: 'Industry Test', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+/* Even-word italic effect: use two spans inside headings */
+.industry-heading .italic-word {
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
 }

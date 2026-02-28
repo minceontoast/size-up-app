@@ -16,15 +16,19 @@ export default function HomeScreen({ onStart, onRandomise }) {
         textAlign: 'center',
       }}
     >
-      <h1 style={{ fontSize: 42, fontWeight: 800, marginBottom: 6, letterSpacing: -1 }}>
-        Size Up
+      <h1 className="industry-heading" style={{ fontSize: 48, marginBottom: 6 }}>
+        SIZE <span className="italic-word">Up</span>
       </h1>
       <h2
         style={{
+          fontFamily: "'Industry Test', sans-serif",
           fontSize: 15,
           fontWeight: 400,
+          fontStyle: 'italic',
           opacity: 0.7,
           marginBottom: 8,
+          textTransform: 'uppercase',
+          letterSpacing: 2,
         }}
       >
         Emergency Event Appreciation
