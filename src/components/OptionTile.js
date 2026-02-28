@@ -32,7 +32,7 @@ export default function OptionTile({ option, selected, onSelect, suitColor }) {
           right: 10,
           fontSize: 28,
           fontWeight: 800,
-          color: isSelected ? scoreColor : `${scoreColor}55`,
+          color: isSelected ? scoreColor : `${scoreColor}28`,
           lineHeight: 1,
           fontFamily: "'Industry Test', sans-serif",
           transition: 'color 0.15s ease',
