@@ -9,14 +9,14 @@ function formatDate() {
   return `${dd}/${mm}/${yyyy}`;
 }
 
-export default function ExportModal({ selections, onClose }) {
+export default function ExportModal({ selections, comments, onClose }) {
   const [operationName, setOperationName] = useState('');
   const [policeRef, setPoliceRef] = useState('');
   const [userName, setUserName] = useState('');
   const date = formatDate();
 
   const handleExport = async () => {
-    await generatePDF({ selections, operationName, policeRef, userName, date });
+    await generatePDF({ selections, comments, operationName, policeRef, userName, date });
     onClose();
   };
 

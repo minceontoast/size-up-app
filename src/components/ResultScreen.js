@@ -17,6 +17,7 @@ const FACTOR_COLORS = [
   '#f57f17', // 10 Displacements - amber
   '#e65100', // 11 Surge Resourcing - deep orange
   '#4e342e', // 12 Critical Resources - brown
+  '#37474f', // 13 Specialised Teams - blue-grey
 ];
 
 function ResultCard({ factor, value, color, isActive, onClick }) {
@@ -220,7 +221,7 @@ function EditPanel({ factor, value, color, onSelect, onClose }) {
   );
 }
 
-export default function ResultScreen({ selections, onSelect, onReset, onBack }) {
+export default function ResultScreen({ selections, onSelect, onReset, onBack, comments, onComment }) {
   const [editingId, setEditingId] = useState(null);
   const [showExportModal, setShowExportModal] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
@@ -500,54 +501,51 @@ export default function ResultScreen({ selections, onSelect, onReset, onBack }) 
                         {group.label} ({group.items.length})
                       </div>
                       {group.items.map((d) => (
-                        <div
-                          key={d.factor.id}
-                          onClick={() =>
-                            setEditingId(editingId === d.factor.id ? null : d.factor.id)
-                          }
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 10,
-                            padding: '8px 10px',
-                            background: group.bg,
-                            borderRadius: 8,
-                            marginBottom: 4,
-                            cursor: 'pointer',
-                          }}
-                        >
-                          <span
+                        <div key={d.factor.id} style={{ marginBottom: 6 }}>
+                          <div
+                            onClick={() =>
+                              setEditingId(editingId === d.factor.id ? null : d.factor.id)
+                            }
                             style={{
-                              flex: 1,
-                              fontSize: 13,
-                              fontWeight: 600,
-                              color: '#333',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 10,
+                              padding: '8px 10px',
+                              background: group.bg,
+                              borderRadius: comments[d.factor.id] ? '8px 8px 0 0' : 8,
+                              cursor: 'pointer',
                             }}
                           >
-                            {d.factor.name}
-                          </span>
-                          <span
+                            <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: '#333' }}>
+                              {d.factor.name}
+                            </span>
+                            <span style={{ fontSize: 12, color: '#666', maxWidth: 160, textAlign: 'right', lineHeight: 1.3 }}>
+                              {d.option?.label}
+                            </span>
+                            <span style={{ fontWeight: 800, fontSize: 14, color: group.color, minWidth: 18, textAlign: 'center' }}>
+                              {d.value}
+                            </span>
+                          </div>
+                          <input
+                            type="text"
+                            value={comments[d.factor.id] || ''}
+                            onChange={(e) => onComment(d.factor.id, e.target.value)}
+                            onClick={(e) => e.stopPropagation()}
+                            placeholder="Add comment…"
                             style={{
+                              width: '100%',
+                              padding: '6px 10px',
                               fontSize: 12,
-                              color: '#666',
-                              maxWidth: 160,
-                              textAlign: 'right',
-                              lineHeight: 1.3,
+                              border: `1px solid ${group.color}44`,
+                              borderTop: 'none',
+                              borderRadius: '0 0 8px 8px',
+                              background: '#fff',
+                              color: '#333',
+                              boxSizing: 'border-box',
+                              outline: 'none',
+                              fontFamily: 'inherit',
                             }}
-                          >
-                            {d.option?.label}
-                          </span>
-                          <span
-                            style={{
-                              fontWeight: 800,
-                              fontSize: 14,
-                              color: group.color,
-                              minWidth: 18,
-                              textAlign: 'center',
-                            }}
-                          >
-                            {d.value}
-                          </span>
+                          />
                         </div>
                       ))}
                     </div>
@@ -560,7 +558,7 @@ export default function ResultScreen({ selections, onSelect, onReset, onBack }) 
       </div>
 
       {showExportModal && (
-        <ExportModal selections={selections} onClose={() => setShowExportModal(false)} />
+        <ExportModal selections={selections} comments={comments} onClose={() => setShowExportModal(false)} />
       )}
     </div>
   );

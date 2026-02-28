@@ -10,13 +10,19 @@ const bgUrl = `${process.env.PUBLIC_URL}/city-bg.jpg`;
 function App() {
   const [screen, setScreen] = useState('home'); // home | assessment | result
   const [selections, setSelections] = useState({});
+  const [comments, setComments] = useState({});
 
   const handleSelect = (factorId, value) => {
     setSelections((prev) => ({ ...prev, [factorId]: value }));
   };
 
+  const handleComment = (factorId, text) => {
+    setComments((prev) => ({ ...prev, [factorId]: text }));
+  };
+
   const handleReset = () => {
     setSelections({});
+    setComments({});
     setScreen('home');
   };
 
@@ -50,6 +56,8 @@ function App() {
         onSelect={handleSelect}
         onReset={handleReset}
         onBack={() => setScreen('assessment')}
+        comments={comments}
+        onComment={handleComment}
       />
     );
   }

@@ -17,7 +17,7 @@ function getShortBrowser() {
   return ua.substring(0, 50);
 }
 
-export async function generatePDF({ selections, operationName, policeRef, userName, date }) {
+export async function generatePDF({ selections, comments = {}, operationName, policeRef, userName, date }) {
   // Fetch public IP
   let ip = 'Unknown';
   try {
@@ -100,7 +100,7 @@ export async function generatePDF({ selections, operationName, policeRef, userNa
           fillColor: isHighSeverity ? [255, 235, 238] : null,
         },
       },
-      { content: '', styles: { fontSize: 7 } },
+      { content: comments[factor.id] || '', styles: { fontSize: 7 } },
     ]);
   });
 
