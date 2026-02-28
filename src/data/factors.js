@@ -136,15 +136,4 @@ export const FACTORS = [
       { label: 'Yes', value: 1 },
     ],
   },
-  {
-    id: 13,
-    suit: 'resources',
-    name: 'Specialised Teams or Technical Experts Required?',
-    notes: 'e.g. urban search & rescue, hazmat, engineering, medical specialists, welfare teams',
-    options: [
-      { label: 'No', value: 0 },
-      { label: 'Yes \u2013 available locally', value: 1 },
-      { label: 'Yes \u2013 requires external deployment', value: 2 },
-    ],
-  },
 ];

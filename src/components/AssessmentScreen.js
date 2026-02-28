@@ -3,7 +3,7 @@ import UrgencyCard from './UrgencyCard';
 import ScorePanel from './ScorePanel';
 import { FACTORS, SUITS } from '../data/factors';
 
-export default function AssessmentScreen({ selections, onSelect, onFinish, onBack, onRandomise }) {
+export default function AssessmentScreen({ selections, onSelect, onFinish, onBack, onRandomise, comments, onComment }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [panelOpen, setPanelOpen] = useState(false);
   const containerRef = useRef(null);
@@ -112,41 +112,67 @@ export default function AssessmentScreen({ selections, onSelect, onFinish, onBac
         />
       </div>
 
-      {/* Suit label */}
+      {/* Navigation buttons */}
       <div
         style={{
-          textAlign: 'center',
-          padding: '12px 0 4px',
-          fontSize: 12,
-          color: '#fff',
-          fontWeight: 600,
-          letterSpacing: 1,
-          textTransform: 'uppercase',
-        }}
-      >
-        {suit.symbol} {suit.label} {suit.symbol}
-      </div>
-
-      {/* Card area */}
-      <div
-        ref={containerRef}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        style={{
-          flex: 1,
           display: 'flex',
-          alignItems: 'flex-start',
+          gap: 12,
+          padding: '10px 16px 6px',
           justifyContent: 'center',
-          padding: '8px 16px 16px',
-          overflow: 'hidden',
+          background: 'rgba(255,255,255,0.92)',
+          borderBottom: '1px solid #e0e0e0',
         }}
       >
-        <UrgencyCard
-          key={factor.id}
-          factor={factor}
-          selectedValue={selections[factor.id]}
-          onSelect={(value) => onSelect(factor.id, value)}
-        />
+        <button
+          onClick={() => goTo(currentIndex - 1)}
+          disabled={currentIndex === 0}
+          style={{
+            padding: '10px 24px',
+            borderRadius: 10,
+            border: '1px solid #ddd',
+            background: '#fff',
+            fontSize: 15,
+            cursor: currentIndex === 0 ? 'default' : 'pointer',
+            opacity: currentIndex === 0 ? 0.4 : 1,
+            fontWeight: 600,
+          }}
+        >
+          ← Previous
+        </button>
+
+        {currentIndex < FACTORS.length - 1 ? (
+          <button
+            onClick={() => goTo(currentIndex + 1)}
+            style={{
+              padding: '10px 24px',
+              borderRadius: 10,
+              border: 'none',
+              background: suit.color,
+              color: '#fff',
+              fontSize: 15,
+              cursor: 'pointer',
+              fontWeight: 600,
+            }}
+          >
+            Next →
+          </button>
+        ) : (
+          <button
+            onClick={onFinish}
+            style={{
+              padding: '10px 32px',
+              borderRadius: 10,
+              border: 'none',
+              background: '#1a237e',
+              color: '#fff',
+              fontSize: 15,
+              cursor: 'pointer',
+              fontWeight: 700,
+            }}
+          >
+            View Results
+          </button>
+        )}
       </div>
 
       {/* Card dots */}
@@ -155,7 +181,7 @@ export default function AssessmentScreen({ selections, onSelect, onFinish, onBac
           display: 'flex',
           justifyContent: 'center',
           gap: 6,
-          padding: '8px 0',
+          padding: '8px 0 4px',
           flexWrap: 'wrap',
           maxWidth: 300,
           margin: '0 auto',
@@ -184,65 +210,43 @@ export default function AssessmentScreen({ selections, onSelect, onFinish, onBac
         ))}
       </div>
 
-      {/* Navigation buttons */}
+      {/* Suit label */}
       <div
         style={{
-          display: 'flex',
-          gap: 12,
-          padding: 'calc(12px) 16px calc(24px + env(safe-area-inset-bottom))',
-          justifyContent: 'center',
+          textAlign: 'center',
+          padding: '8px 0 4px',
+          fontSize: 12,
+          color: '#fff',
+          fontWeight: 600,
+          letterSpacing: 1,
+          textTransform: 'uppercase',
         }}
       >
-        <button
-          onClick={() => goTo(currentIndex - 1)}
-          disabled={currentIndex === 0}
-          style={{
-            padding: '12px 24px',
-            borderRadius: 10,
-            border: '1px solid #ddd',
-            background: '#fff',
-            fontSize: 15,
-            cursor: currentIndex === 0 ? 'default' : 'pointer',
-            opacity: currentIndex === 0 ? 0.4 : 1,
-            fontWeight: 600,
-          }}
-        >
-          ← Previous
-        </button>
+        {suit.symbol} {suit.label} {suit.symbol}
+      </div>
 
-        {currentIndex < FACTORS.length - 1 ? (
-          <button
-            onClick={() => goTo(currentIndex + 1)}
-            style={{
-              padding: '12px 24px',
-              borderRadius: 10,
-              border: 'none',
-              background: suit.color,
-              color: '#fff',
-              fontSize: 15,
-              cursor: 'pointer',
-              fontWeight: 600,
-            }}
-          >
-            Next →
-          </button>
-        ) : (
-          <button
-            onClick={onFinish}
-            style={{
-              padding: '12px 32px',
-              borderRadius: 10,
-              border: 'none',
-              background: '#1a237e',
-              color: '#fff',
-              fontSize: 15,
-              cursor: 'pointer',
-              fontWeight: 700,
-            }}
-          >
-            View Results
-          </button>
-        )}
+      {/* Card area */}
+      <div
+        ref={containerRef}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          padding: '8px 16px calc(24px + env(safe-area-inset-bottom))',
+          overflow: 'hidden',
+        }}
+      >
+        <UrgencyCard
+          key={factor.id}
+          factor={factor}
+          selectedValue={selections[factor.id]}
+          onSelect={(value) => onSelect(factor.id, value)}
+          comment={comments?.[factor.id] || ''}
+          onComment={(text) => onComment?.(factor.id, text)}
+        />
       </div>
     </div>
   );

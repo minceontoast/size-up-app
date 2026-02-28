@@ -2,7 +2,7 @@ import React from 'react';
 import OptionTile from './OptionTile';
 import { SUITS } from '../data/factors';
 
-export default function UrgencyCard({ factor, selectedValue, onSelect }) {
+export default function UrgencyCard({ factor, selectedValue, onSelect, comment, onComment }) {
   const suit = SUITS[factor.suit];
 
   return (
@@ -62,6 +62,33 @@ export default function UrgencyCard({ factor, selectedValue, onSelect }) {
           />
         ))}
       </div>
+
+      {/* Specialised teams prompt — only for Critical Resources card */}
+      {factor.id === 12 && (
+        <div style={{ marginTop: 12 }}>
+          <div style={{ fontSize: 11, color: '#888', marginBottom: 4 }}>
+            Specialised teams or technical experts required?
+          </div>
+          <input
+            type="text"
+            value={comment}
+            onChange={(e) => onComment(e.target.value)}
+            placeholder="e.g. USAR, hazmat, engineering, welfare teams…"
+            style={{
+              width: '100%',
+              padding: '8px 10px',
+              fontSize: 13,
+              border: `1px solid ${suit.color}44`,
+              borderRadius: 8,
+              background: '#fafafa',
+              color: '#333',
+              boxSizing: 'border-box',
+              outline: 'none',
+              fontFamily: 'inherit',
+            }}
+          />
+        </div>
+      )}
 
       {/* Unknown hint */}
       <div

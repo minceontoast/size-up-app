@@ -17,7 +17,6 @@ const FACTOR_COLORS = [
   '#f57f17', // 10 Displacements - amber
   '#e65100', // 11 Surge Resourcing - deep orange
   '#4e342e', // 12 Critical Resources - brown
-  '#37474f', // 13 Specialised Teams - blue-grey
 ];
 
 function ResultCard({ factor, value, color, isActive, onClick }) {

@@ -47,6 +47,8 @@ function App() {
         onFinish={() => setScreen('result')}
         onBack={() => setScreen('home')}
         onRandomise={handleRandomise}
+        comments={comments}
+        onComment={handleComment}
       />
     );
   } else {
