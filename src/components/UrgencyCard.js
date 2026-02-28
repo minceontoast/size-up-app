@@ -52,7 +52,7 @@ export default function UrgencyCard({ factor, selectedValue, onSelect }) {
 
       {/* Options */}
       <div style={{ padding: '0 4px' }}>
-        {factor.options.map((option, i) => (
+        {[...factor.options].reverse().map((option, i) => (
           <OptionTile
             key={i}
             option={option}
