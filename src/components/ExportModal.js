@@ -9,14 +9,13 @@ function formatDate() {
   return `${dd}/${mm}/${yyyy}`;
 }
 
-export default function ExportModal({ selections, comments, onClose }) {
+export default function ExportModal({ selections, selectionLabels, comments, onClose }) {
   const [operationName, setOperationName] = useState('');
-  const [policeRef, setPoliceRef] = useState('');
-  const [userName, setUserName] = useState('');
+  const [assessorName, setAssessorName] = useState('');
   const date = formatDate();
 
   const handleExport = async () => {
-    await generatePDF({ selections, comments, operationName, policeRef, userName, date });
+    await generatePDF({ selections, selectionLabels, comments, operationName, assessorName, date });
     onClose();
   };
 
@@ -72,33 +71,12 @@ export default function ExportModal({ selections, comments, onClose }) {
 
         <label style={{ display: 'block', marginBottom: 14 }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: '#555', marginBottom: 4 }}>
-            Job Reference
+            Assessor Name
           </div>
           <input
             type="text"
-            value={policeRef}
-            onChange={(e) => setPoliceRef(e.target.value)}
-            placeholder="Optional"
-            style={{
-              width: '100%',
-              padding: '10px 12px',
-              border: '1.5px solid #ddd',
-              borderRadius: 8,
-              fontSize: 15,
-              boxSizing: 'border-box',
-              outline: 'none',
-            }}
-          />
-        </label>
-
-        <label style={{ display: 'block', marginBottom: 14 }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: '#555', marginBottom: 4 }}>
-            Name
-          </div>
-          <input
-            type="text"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            value={assessorName}
+            onChange={(e) => setAssessorName(e.target.value)}
             placeholder="Optional"
             style={{
               width: '100%',

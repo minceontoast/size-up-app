@@ -3,7 +3,7 @@ import UrgencyCard from './UrgencyCard';
 import ScorePanel from './ScorePanel';
 import { FACTORS, SUITS } from '../data/factors';
 
-export default function AssessmentScreen({ selections, onSelect, onFinish, onBack, onRandomise, comments, onComment }) {
+export default function AssessmentScreen({ selections, selectionLabels, onSelect, onFinish, onBack, onRandomise, comments, onComment }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [panelOpen, setPanelOpen] = useState(false);
   const containerRef = useRef(null);
@@ -243,7 +243,8 @@ export default function AssessmentScreen({ selections, onSelect, onFinish, onBac
           key={factor.id}
           factor={factor}
           selectedValue={selections[factor.id]}
-          onSelect={(value) => onSelect(factor.id, value)}
+          selectedLabel={selectionLabels?.[factor.id]}
+          onSelect={(value, label) => onSelect(factor.id, value, label)}
           comment={comments?.[factor.id] || ''}
           onComment={(text) => onComment?.(factor.id, text)}
         />

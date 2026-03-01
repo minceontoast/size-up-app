@@ -2,7 +2,7 @@ import React from 'react';
 import OptionTile from './OptionTile';
 import { SUITS } from '../data/factors';
 
-export default function UrgencyCard({ factor, selectedValue, onSelect, comment, onComment }) {
+export default function UrgencyCard({ factor, selectedValue, selectedLabel, onSelect, comment, onComment }) {
   const suit = SUITS[factor.suit];
 
   return (
@@ -56,8 +56,8 @@ export default function UrgencyCard({ factor, selectedValue, onSelect, comment, 
           <OptionTile
             key={i}
             option={option}
-            selected={selectedValue}
-            onSelect={onSelect}
+            selectedLabel={selectedLabel}
+            onSelect={() => onSelect(option.value, option.label)}
             suitColor={suit.color}
           />
         ))}

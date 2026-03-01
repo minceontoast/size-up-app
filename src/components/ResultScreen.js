@@ -133,7 +133,7 @@ function ResultCard({ factor, value, color, isActive, onClick }) {
   );
 }
 
-function EditPanel({ factor, value, color, onSelect, onClose }) {
+function EditPanel({ factor, value, selectedLabel, color, onSelect, onClose }) {
   return (
     <div
       style={{
@@ -172,11 +172,11 @@ function EditPanel({ factor, value, color, onSelect, onClose }) {
         </button>
       </div>
       {factor.options.map((option, i) => {
-        const isSelected = value === option.value;
+        const isSelected = selectedLabel != null ? selectedLabel === option.label : value === option.value;
         return (
           <button
             key={i}
-            onClick={() => onSelect(factor.id, option.value)}
+            onClick={() => onSelect(factor.id, option.value, option.label)}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -220,7 +220,7 @@ function EditPanel({ factor, value, color, onSelect, onClose }) {
   );
 }
 
-export default function ResultScreen({ selections, onSelect, onReset, onBack, comments, onComment }) {
+export default function ResultScreen({ selections, selectionLabels, onSelect, onReset, onBack, comments, onComment }) {
   const [editingId, setEditingId] = useState(null);
   const [showExportModal, setShowExportModal] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
@@ -423,9 +423,10 @@ export default function ResultScreen({ selections, onSelect, onReset, onBack, co
           <EditPanel
             factor={editingFactor}
             value={selections[editingFactor.id] ?? 0}
+            selectedLabel={selectionLabels?.[editingFactor.id]}
             color={FACTOR_COLORS[editingIndex]}
-            onSelect={(id, val) => {
-              onSelect(id, val);
+            onSelect={(id, val, label) => {
+              onSelect(id, val, label);
             }}
             onClose={() => setEditingId(null)}
           />
@@ -557,7 +558,7 @@ export default function ResultScreen({ selections, onSelect, onReset, onBack, co
       </div>
 
       {showExportModal && (
-        <ExportModal selections={selections} comments={comments} onClose={() => setShowExportModal(false)} />
+        <ExportModal selections={selections} selectionLabels={selectionLabels} comments={comments} onClose={() => setShowExportModal(false)} />
       )}
     </div>
   );

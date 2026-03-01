@@ -1,12 +1,12 @@
 import React from 'react';
 
-export default function OptionTile({ option, selected, onSelect, suitColor }) {
-  const isSelected = selected === option.value && selected != null;
+export default function OptionTile({ option, selectedLabel, onSelect, suitColor }) {
+  const isSelected = selectedLabel === option.label;
   const scoreColor = option.value >= 2 ? '#c62828' : option.value === 0 ? '#2e7d32' : '#888';
 
   return (
     <button
-      onClick={() => onSelect(option.value)}
+      onClick={onSelect}
       style={{
         display: 'flex',
         alignItems: 'center',

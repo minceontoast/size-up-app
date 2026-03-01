@@ -17,7 +17,7 @@ function getShortBrowser() {
   return ua.substring(0, 50);
 }
 
-export async function generatePDF({ selections, comments = {}, operationName, policeRef, userName, date }) {
+export async function generatePDF({ selections, selectionLabels = {}, comments = {}, operationName, assessorName, date }) {
   // Fetch public IP
   let ip = 'Unknown';
   try {
@@ -62,8 +62,7 @@ export async function generatePDF({ selections, comments = {}, operationName, po
   // === OPERATION DETAILS ===
   const details = [
     ['Incident Name', operationName || '-'],
-    ['Job Reference', policeRef || '-'],
-    ['Name', userName || '-'],
+    ['Assessor Name', assessorName || '-'],
     ['Date', date],
   ];
 
@@ -83,8 +82,13 @@ export async function generatePDF({ selections, comments = {}, operationName, po
 
   FACTORS.forEach((factor) => {
     const value = selections[factor.id] ?? 0;
-    const selectedOption = factor.options.find((o) => o.value === value);
-    const selectionLabel = selectedOption ? selectedOption.label : 'Unanswered (default)';
+    const storedLabel = selectionLabels[factor.id];
+    const selectedOption = storedLabel
+      ? factor.options.find((o) => o.label === storedLabel)
+      : factor.options.find((o) => o.value === value);
+    const selectionLabel = selections[factor.id] != null
+      ? (selectedOption ? selectedOption.label : String(value))
+      : 'Unanswered (default)';
     const isHighSeverity = value >= 2;
 
     tableBody.push([

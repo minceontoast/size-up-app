@@ -10,10 +10,12 @@ const bgUrl = `${process.env.PUBLIC_URL}/city-bg.jpg`;
 function App() {
   const [screen, setScreen] = useState('home'); // home | assessment | result
   const [selections, setSelections] = useState({});
+  const [selectionLabels, setSelectionLabels] = useState({});
   const [comments, setComments] = useState({});
 
-  const handleSelect = (factorId, value) => {
+  const handleSelect = (factorId, value, label) => {
     setSelections((prev) => ({ ...prev, [factorId]: value }));
+    setSelectionLabels((prev) => ({ ...prev, [factorId]: label }));
   };
 
   const handleComment = (factorId, text) => {
@@ -22,17 +24,21 @@ function App() {
 
   const handleReset = () => {
     setSelections({});
+    setSelectionLabels({});
     setComments({});
     setScreen('home');
   };
 
   const handleRandomise = () => {
     const randomSelections = {};
+    const randomLabels = {};
     FACTORS.forEach((factor) => {
       const randomOption = factor.options[Math.floor(Math.random() * factor.options.length)];
       randomSelections[factor.id] = randomOption.value;
+      randomLabels[factor.id] = randomOption.label;
     });
     setSelections(randomSelections);
+    setSelectionLabels(randomLabels);
     setScreen('result');
   };
 
@@ -43,6 +49,7 @@ function App() {
     content = (
       <AssessmentScreen
         selections={selections}
+        selectionLabels={selectionLabels}
         onSelect={handleSelect}
         onFinish={() => setScreen('result')}
         onBack={() => setScreen('home')}
@@ -55,6 +62,7 @@ function App() {
     content = (
       <ResultScreen
         selections={selections}
+        selectionLabels={selectionLabels}
         onSelect={handleSelect}
         onReset={handleReset}
         onBack={() => setScreen('assessment')}
