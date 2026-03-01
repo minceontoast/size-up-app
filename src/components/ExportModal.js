@@ -8,7 +8,9 @@ function formatDateTime() {
   const yyyy = d.getFullYear();
   const hh = String(d.getHours()).padStart(2, '0');
   const min = String(d.getMinutes()).padStart(2, '0');
-  return `${dd}/${mm}/${yyyy} ${hh}:${min}`;
+  const ss = String(d.getSeconds()).padStart(2, '0');
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  return `${dd}/${mm}/${yyyy} ${hh}:${min}:${ss} (${tz})`;
 }
 
 export default function ExportModal({ selections, selectionLabels, comments, onClose }) {
