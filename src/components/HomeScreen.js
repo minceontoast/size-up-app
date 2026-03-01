@@ -1,4 +1,5 @@
 import React from 'react';
+import { VERSION } from '../version';
 
 export default function HomeScreen({ onStart, onRandomise }) {
   return (
@@ -99,7 +100,7 @@ export default function HomeScreen({ onStart, onRandomise }) {
           padding: '0 24px',
         }}
       >
-        Based on the Event Appreciation Activation Guide by TOA Consulting New Zealand, app created by Ed Cook.
+        Based on the Event Appreciation Activation Guide by TOA Consulting New Zealand, app created by Ed Cook. {VERSION}
       </div>
     </div>
   );
