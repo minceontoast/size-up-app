@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { generatePDF } from '../utils/pdfExport';
 
-function formatDate() {
+function formatDateTime() {
   const d = new Date();
   const dd = String(d.getDate()).padStart(2, '0');
   const mm = String(d.getMonth() + 1).padStart(2, '0');
   const yyyy = d.getFullYear();
-  return `${dd}/${mm}/${yyyy}`;
+  const hh = String(d.getHours()).padStart(2, '0');
+  const min = String(d.getMinutes()).padStart(2, '0');
+  return `${dd}/${mm}/${yyyy} ${hh}:${min}`;
 }
 
 export default function ExportModal({ selections, selectionLabels, comments, onClose }) {
   const [operationName, setOperationName] = useState('');
   const [assessorName, setAssessorName] = useState('');
-  const date = formatDate();
+  const date = formatDateTime();
 
   const handleExport = async () => {
     await generatePDF({ selections, selectionLabels, comments, operationName, assessorName, date });
@@ -92,7 +94,7 @@ export default function ExportModal({ selections, selectionLabels, comments, onC
 
         <label style={{ display: 'block', marginBottom: 24 }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: '#555', marginBottom: 4 }}>
-            Date
+            Date / Time
           </div>
           <input
             type="text"
